@@ -70,7 +70,7 @@ class PlayerTracking:
                 bbox = frame_detection[0].tolist()
 
                 if class_id == class_names_inverse['Player']:
-                    tracks[frame_number][track_id] = bbox
+                    tracks[frame_number][track_id] = {"bbox": bbox}
         
         save_stub(stub_path, tracks)
 

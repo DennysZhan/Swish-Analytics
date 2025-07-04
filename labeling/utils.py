@@ -1,6 +1,7 @@
 import cv2
 import sys
 sys.path.append("../")
+import numpy as np
 from utils import get_bbox_center, get_bbox_width
 
 def draw_ellipse(frame, bbox, color=(0, 255, 0), track_id = None):
@@ -55,6 +56,31 @@ def draw_ellipse(frame, bbox, color=(0, 255, 0), track_id = None):
                    (0, 0, 0), 
                    2)
 
-    
+    return frame
 
+def draw_arrow(frame, bbox, color):
+    """
+    Draws an arrow on the frame based on the bounding box coordinates.
+    
+    Parameters:
+        frame: The video frame on which to draw.
+        bbox: A tuple containing the bounding box coordinates (x1, y1, x2, y2).
+        color: The color of the arrow in BGR format.
+    
+    Returns:
+        The frame with the drawn arrow.
+    """
+
+    y = int(bbox[1])
+    x,_ = get_bbox_center(bbox)
+
+    arrow_points = np.array([
+        [x,y],
+        [x - 10, y - 20],
+        [x + 10, y - 20]
+    ])
+
+    cv2.drawContours(frame, [arrow_points], 0, color, cv2.FILLED)
+    cv2.drawContours(frame, [arrow_points], 0, (0,0,0), 2)
+    
     return frame
