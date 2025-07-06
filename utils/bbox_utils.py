@@ -25,3 +25,14 @@ def get_bbox_width(bbox):
     """
     x1, y1, x2, y2 = bbox
     return x2 - x1
+
+def measure_distance(p1, p2):
+    """
+    Measures the Euclidean distance between two points.
+    Args:
+        p1: A tuple representing the first point (x1, y1).
+        p2: A tuple representing the second point (x2, y2).
+    Returns:
+        The Euclidean distance between the two points.
+    """
+    return ((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2) ** 0.5
