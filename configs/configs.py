@@ -1,0 +1,5 @@
+STUBS_DEFAULT_PATH = 'stubs'
+PLAYER_DETECTION_MODEL_PATH = 'models/player_detection.pt'
+BALL_DETECTION_MODEL_PATH = 'models/basketball_detection.pt'
+COURT_KEYPOINT_DETECTION_MODEL_PATH = 'models/court_keypoint_detection.pt'
+OUTPUT_VIDEO_PATH = 'output_videos/output_video.mp4'

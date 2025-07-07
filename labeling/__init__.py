@@ -2,5 +2,9 @@ from .utils import draw_arrow, draw_ellipse
 from .player_tracking_labeler import PlayerTrackingLabeler
 from .ball_tracking_labeler import BallTrackingLabeler
 from .team_ball_control_labeler import TeamBallControlLabeler
+from .passes_and_interceptions_labeler import PassesAndInterceptionsLabeler
+from .court_keypoints_labeler import CourtKeypointLabeler
+from .tactical_view_labeler import TacticalViewLabeler
+from .speed_and_distance_labeler import SpeedAndDistanceLabeler
 
 

@@ -94,7 +94,7 @@ class BallTracking:
         last_good_frame_index = -1
 
         for i in range(len(ball_positions)):
-            current_bbox = ball_positions[i].get(1, {}).get('bbox', {})
+            current_bbox = ball_positions[i].get(1, {}).get('bbox', [])
 
             if len(current_bbox) == 0:
                 continue
@@ -103,7 +103,7 @@ class BallTracking:
                 last_good_frame_index = i
                 continue
 
-            last_good_bbox = ball_positions[last_good_frame_index].get(1, {}).get('bbox', {})
+            last_good_bbox = ball_positions[last_good_frame_index].get(1, {}).get('bbox', [])
             frame_gap =i - last_good_frame_index
             adjusted_max_distance = maximum_distance_allowed * frame_gap
 
@@ -129,7 +129,7 @@ class BallTracking:
         df_ball_positions = pd.DataFrame(ball_positions, columns=['x1', 'y1', 'x2', 'y2'])
 
         #Interpolate missing values
-        df_ball_positions = df_ball_positions.interpolate(method='polynomial', order=2)
+        df_ball_positions = df_ball_positions.interpolate()
         df_ball_positions = df_ball_positions.bfill()
 
         ball_positions = [{1:{"bbox" : x }} for x in df_ball_positions.to_numpy().tolist() ]

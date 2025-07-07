@@ -6,14 +6,12 @@ class BallTrackingLabeler:
 
     def label(self, frames, tracks):
         """
-        Draws ball tracks on the video frames.
-
+        Label ball tracks in the provided video frames.
         Args:
             frames: List of video frames to process.
-            tracks: List of tracks for each frame, where each track is a dictionary mapping track IDs to bounding boxes.
-
+            tracks: List of dictionaries containing ball track information for each frame.
         Returns:
-            List of video frames with ball tracks drawn.
+            List of labeled video frames with ball tracks drawn.
         """
         output_video_frames = []
         for frame_number, frame in enumerate(frames):

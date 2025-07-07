@@ -7,7 +7,7 @@ from utils.stubs_utils import read_stub, save_stub
 from transformers import CLIPProcessor, CLIPModel
 
 class TeamAssigner:
-    def __init__(self, team_1_class_name = "white basketball jersey", team_2_class_name = "dark blue basketball jersey"):
+    def __init__(self, team_1_class_name = "white basketball jersey", team_2_class_name = "red basketball jersey"):
         """
         Initializes the TeamAssigner with the class names for each team.
         
@@ -113,7 +113,7 @@ class TeamAssigner:
         for frame_number, player_track in enumerate(player_tracks):
             player_assignments.append({})
 
-            if frame_number % 10 ==0:
+            if frame_number % 50 ==0:
                 self.player_team_dict = {}
 
             for player_id, track in player_track.items():

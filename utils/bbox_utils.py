@@ -36,3 +36,16 @@ def measure_distance(p1, p2):
         The Euclidean distance between the two points.
     """
     return ((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2) ** 0.5
+
+def get_foot_position(bbox):
+    """
+    Calculates the foot position from a bounding box.
+
+    Args:
+        bbox: A tuple containing the bounding box coordinates (x1, y1, x2, y2).
+
+    Returns:
+        A tuple representing the foot position (foot_x, foot_y).
+    """
+    x1, y1, x2, y2 = bbox
+    return (int((x1 + x2) / 2), y2)
