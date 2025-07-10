@@ -25,7 +25,7 @@ class CourtKeypointLabeler:
             color=sv.Color.from_hex(self.keypoint_color),
             text_color= sv.Color.WHITE,
             text_scale=0.5,
-            thickness=1
+            text_thickness=1
         )
 
         output_frames = []

@@ -20,11 +20,11 @@ class TacticalViewConverter:
         self.key_points = [
             #left edge
             (0,0),
-            (0, int(0.91/self.actual_height_in_meters)/self.height),
-            (0, int(5.18/self.actual_height_in_meters)/self.height),
-            (0, int(10/self.actual_height_in_meters)/self.height),
-            (0, int(14.1/self.actual_height_in_meters)/self.height),
-            (0, int(self.height))
+            (0, int(0.91/self.actual_height_in_meters/self.height)),
+            (0, int(5.18/self.actual_height_in_meters/self.height)),
+            (0, int(10/self.actual_height_in_meters/self.height)),
+            (0, int(14.1/self.actual_height_in_meters/self.height)),
+            (0, int(self.height)),
 
             # Middle line
             (int(self.width/2),self.height),

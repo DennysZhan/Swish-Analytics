@@ -8,7 +8,7 @@ class TacticalViewLabeler:
         self.team_1_color = team_1_color 
         self.team_2_color = team_2_color 
 
-    def label(self, frames, court_image_path, width, height, tactical_court_keypoints, tactical_player_positions, player_assignments=None, ball_acquisition_point = None):
+    def label(self, frames, court_image_path, width, height, tactical_court_keypoints, tactical_player_positions=None, player_assignments=None, ball_acquisition_point = None):
 
         court_image = cv2.imread(court_image_path)
         court_image = cv2.resize(court_image, (width, height))
@@ -34,12 +34,13 @@ class TacticalViewLabeler:
                 cv2.circle(frame, (x,y), 5, (0,0,255), -1)
                 cv2.putText(frame, str(keypoint_index), (x,y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,0), 2)
 
+            if tactical_player_positions and player_assignments and frame_index < len(tactical_player_positions):
                 frame_positions = tactical_player_positions[frame_index]
-                frame_assignment = player_assignments[frame_index]
-                player_with_ball = ball_acquisition_point
+                frame_assignment = player_assignments[frame_index] if frame_index < len(player_assignments) else {}
+                player_with_ball = ball_acquisition_point[frame_index] if ball_acquisition_point and frame_index < len(ball_acquisition_point) else None
 
                 for player_id, position in frame_positions.items():
-                    team_id = frame_assignment.get(player_id, 1e)
+                    team_id = frame_assignment.get(player_id, 1)
                     color = self.team_1_color if team_id == 1 else self.team_2_color
 
                     x,y = int(position[0] + self.start_x), int(position[1] + self.start_y)

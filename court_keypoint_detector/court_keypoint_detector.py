@@ -16,7 +16,7 @@ class CourtKeypointDetector:
             read_from_stub: Boolean indicating whether to read from a stub file.
             stub_path: Path to the stub file.
         Returns:
-            List of court keypoints for each frame, where each keypoint is a list of coordinates
+            
         """
 
         court_keypoints = read_stub(read_from_stub, stub_path)
@@ -30,7 +30,7 @@ class CourtKeypointDetector:
         for i in range(0, len(frames), batch_size):
             detections_batch = self.model.predict(frames[i:i + batch_size], conf=0.5)
             for detection in detections_batch:
-                        court_keypoints.append(detection.keypoints)
+                court_keypoints.append(detection.keypoints)
 
         save_stub(stub_path, court_keypoints)
 

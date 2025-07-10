@@ -9,6 +9,7 @@ from ball_acquisition import BallAquisitionDetector
 from passes_and_interceptions import PassAndInterceptionDetector
 from court_keypoint_detector import CourtKeypointDetector
 from speed_and_distance_calculator import SpeedAndDistanceCalculator
+from tactical_view_converter import TacticalViewConverter
 from configs import STUBS_DEFAULT_PATH, PLAYER_DETECTION_MODEL_PATH, BALL_DETECTION_MODEL_PATH, COURT_KEYPOINT_DETECTION_MODEL_PATH, OUTPUT_VIDEO_PATH
 
 
@@ -25,7 +26,7 @@ def main():
     args = parse_args()
     
     #Read video frames from a file
-    video_frames = read_video()
+    video_frames = read_video(args.input_video)
 
     #Initialize the tracking models
     player_tracker = PlayerTracking(PLAYER_DETECTION_MODEL_PATH)
@@ -60,9 +61,9 @@ def main():
     interceptions = pass_and_interception_detector.detect_interceptions(ball_acquisition_events, player_assignments)
 
     #Tactical view converter
-    tactical_view_converter = TacticalViewLabeler(court_image_path="./images/basketball_court.png")
+    tactical_view_converter = TacticalViewConverter(court_image_path="./images/basketball_court.png")
     court_keypoints = tactical_view_converter.validate_keypoints(court_keypoints)
-    tactical_player_positions = tactical_view_converter.transform_player_positions(court_keypoints, tracked_players)
+    tactical_player_positions = tactical_view_converter.transform_players_to_tactical_view(court_keypoints, tracked_players)
     
     #Speed and distance calculator
     speed_and_distance_calculator = SpeedAndDistanceCalculator(
@@ -83,6 +84,7 @@ def main():
     passes_and_interceptions_labeler = PassesAndInterceptionsLabeler()
     court_keypoint_labeler = CourtKeypointLabeler()
     speed_and_distance_labeler = SpeedAndDistanceLabeler()
+    tactical_view_labeler = TacticalViewLabeler()
 
     #Label the video frames
     output_video_frames = player_labeler.label(video_frames, tracked_players, player_assignments, ball_acquisition_events)
@@ -98,11 +100,11 @@ def main():
     output_video_frames = court_keypoint_labeler.label(output_video_frames, court_keypoints)
 
     #Label tactical view
-    output_video_frames = tactical_view_converter.label(output_video_frames, 
+    output_video_frames = tactical_view_labeler.label(output_video_frames, 
                                                         tactical_view_converter.court_image_path, 
                                                         tactical_view_converter.width, 
                                                         tactical_view_converter.height, 
-                                                        tactical_view_converter.keypoints,
+                                                        tactical_view_converter.key_points,
                                                         tactical_player_positions,
                                                         player_assignments,
                                                         ball_acquisition_events
